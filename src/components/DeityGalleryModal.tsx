@@ -18,7 +18,7 @@ export const DeityGalleryModal: React.FC<DeityGalleryModalProps> = ({
   customImages,
   onUpdateCustomImage,
 }) => {
-  const { lang, t, getDeityName } = useI18n();
+  const { lang, t, getDeityName, getDeityMantra } = useI18n();
   const [selectedDeity, setSelectedDeity] = useState<DeityCardData>(SANATANA_DEITIES[0]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -96,7 +96,7 @@ export const DeityGalleryModal: React.FC<DeityGalleryModalProps> = ({
                 <div>
                   <span className="text-amber-200/50">{t.mantraLabel} </span>
                   <span className="text-amber-100 font-medium">
-                    {lang === 'te' ? selectedDeity.mantraTe : selectedDeity.mantraEn}
+                    {getDeityMantra(selectedDeity)}
                   </span>
                 </div>
                 <div>

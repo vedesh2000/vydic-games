@@ -31,6 +31,10 @@ export const ScoreModal: React.FC<ScoreModalProps> = ({
   const [nameSaved, setNameSaved] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
 
+  React.useEffect(() => {
+    setEditingName(playerName);
+  }, [playerName]);
+
   if (!isOpen) return null;
 
   const filteredScores = scores

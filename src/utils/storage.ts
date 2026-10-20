@@ -105,17 +105,56 @@ export function getBestScoreForGrid(scores: ScoreRecord[], gridSize: GridSizeKey
   return filtered.reduce((best, curr) => (curr.score > best.score ? curr : best), filtered[0]);
 }
 
-export function loadPlayerName(): string {
+const DEFAULT_DEVOTEE_NAMES = new Set([
+  'భక్తుడు',
+  'भक्त',
+  'भक्तः',
+  'பக்தர்',
+  'ಭಕ್ತ',
+  'ഭക്തൻ',
+  'ભક્ત',
+  'ভক্ত',
+  'ਭਗਤ',
+  'ଭକ୍ତ',
+  'Devotee',
+  'భక్తుడు (Devotee)',
+]);
+
+export function isDefaultDevoteeName(name: string): boolean {
+  return !name || !name.trim() || DEFAULT_DEVOTEE_NAMES.has(name.trim());
+}
+
+export function loadPlayerName(langCode: string = 'te'): string {
+  const langDefaults: Record<string, string> = {
+    te: 'భక్తుడు',
+    hi: 'भक्त',
+    sa: 'भक्तः',
+    ta: 'பக்தர்',
+    kn: 'ಭಕ್ತ',
+    ml: 'ഭക്തൻ',
+    mr: 'भक्त',
+    gu: 'ભક્ત',
+    bn: 'ভক্ত',
+    pa: 'ਭਗਤ',
+    or: 'ଭକ୍ତ',
+    as: 'ভক্ত',
+    en: 'Devotee',
+  };
+  const targetDefault = langDefaults[langCode] || 'Devotee';
   try {
-    return localStorage.getItem(PLAYER_NAME_KEY) || 'భక్తుడు';
+    const saved = localStorage.getItem(PLAYER_NAME_KEY);
+    if (!saved || !saved.trim() || DEFAULT_DEVOTEE_NAMES.has(saved.trim())) {
+      return targetDefault;
+    }
+    return saved.trim();
   } catch {
-    return 'భక్తుడు';
+    return targetDefault;
   }
 }
 
 export function savePlayerName(name: string): void {
   try {
-    localStorage.setItem(PLAYER_NAME_KEY, name.trim() || 'భక్తుడు');
+    localStorage.setItem(PLAYER_NAME_KEY, name.trim());
   } catch {
     // ignore
   }
