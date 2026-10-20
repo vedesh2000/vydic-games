@@ -1,0 +1,6 @@
+{
+  "name": "Divya Smarana — Sanatana Deities Memory Game",
+  "description": "A sacred Hindu Sanatana Dharma deities memory tile-flip game featuring 32 illustrated deity portraits (Sri Rama, Sri Krishna, Hanuman, Shiva, Ganesha, Durga, and more) across selectable 3x3, 4x4, 5x5, 6x6, and 8x8 grids with Telugu and English support and persistent score history.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
